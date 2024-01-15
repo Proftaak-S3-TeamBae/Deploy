@@ -1,0 +1,29 @@
+# Docker compose file for TeamBae project
+
+name: "teambae"
+services:
+    # Backend project
+    backend:
+        build: ./backend
+        ports:
+            - 5078:5078
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+
+    # Frontend project
+    frontend:
+        build: ./frontend
+        ports:
+            - 3000:3000
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+
+    # MongoDB
+    mongodb:
+        image: mongodb/mongodb-community-server:latest
+        ports:
+            - 27017:27017
+        volumes:
+            - ./data/mongo:/data/db
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
